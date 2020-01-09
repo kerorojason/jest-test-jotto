@@ -1,6 +1,5 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import checkPropTypes from 'check-prop-types';
 
 import { findByTestAttr, checkProps } from '../test/testUtils';
 import Congrats from './Congrats';
