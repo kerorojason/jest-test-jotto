@@ -69,14 +69,33 @@ describe('redux props', () => {
     expect(guessWordProp).toBeInstanceOf(Function);
   });
 });
-describe('`guessWord` runs on Input submit', () => {
-  test('`guessWord` runs on Input submit', () => {
-    const guessWordMock = jest.fn();
-    const wrapper = shallow(<Input guessWord={guessWordMock} />);
 
-    const submitButton = findByTestAttr(wrapper, 'submit-button');
-    submitButton.simulate('submit');
+describe('`guessWord` action creator call', () => {
+  let guessWordMock;
+  let wrapper;
+  const guessWord = 'train';
+  beforeEach(() => {
+    // create a mock function for `guessWord`
+    guessWordMock = jest.fn();
+
+    // setup Input component
+    wrapper = shallow(<Input guessWord={guessWordMock} />);
+
+    // add value to Input box
+    wrapper.setState({ currentGuess: guessWord });
+
+    // simulate submit on form
+    const formComponent = findByTestAttr(wrapper, 'form');
+    formComponent.simulate('submit', { preventDefault() {} });
+  });
+
+  test('`guessWord` runs on Input submit', () => {
     const guessWordMockCallCount = guessWordMock.mock.calls.length;
     expect(guessWordMockCallCount).toBe(1);
+  });
+
+  test('calls `guessWord with input value as argument`', () => {
+    const guessWordArg = guessWordMock.mock.calls[0][0]; // 第一次 call 的第一個參數
+    expect(guessWordArg).toBe(guessWord);
   });
 });
