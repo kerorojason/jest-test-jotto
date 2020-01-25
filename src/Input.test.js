@@ -2,11 +2,11 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import { findByTestAttr, storeFactory } from '../test/testUtils';
-import Input from './Input';
+import ConnectedInput, { Input } from './Input';
 
 const setup = (initialState = {}) => {
   const store = storeFactory(initialState);
-  const wrapper = shallow(<Input store={store} />)
+  const wrapper = shallow(<ConnectedInput store={store} />)
     .dive()
     .dive();
   return wrapper;
@@ -67,5 +67,16 @@ describe('redux props', () => {
     const wrapper = setup();
     const guessWordProp = wrapper.instance().props.guessWord;
     expect(guessWordProp).toBeInstanceOf(Function);
+  });
+});
+describe('`guessWord` runs on Input submit', () => {
+  test('`guessWord` runs on Input submit', () => {
+    const guessWordMock = jest.fn();
+    const wrapper = shallow(<Input guessWord={guessWordMock} />);
+
+    const submitButton = findByTestAttr(wrapper, 'submit-button');
+    submitButton.simulate('submit');
+    const guessWordMockCallCount = guessWordMock.mock.calls.length;
+    expect(guessWordMockCallCount).toBe(1);
   });
 });
