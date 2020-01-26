@@ -98,4 +98,8 @@ describe('`guessWord` action creator call', () => {
     const guessWordArg = guessWordMock.mock.calls[0][0]; // 第一次 call 的第一個參數
     expect(guessWordArg).toBe(guessWord);
   });
+
+  test('input box clears on submit', () => {
+    expect(wrapper.state('currentGuess')).toBe('');
+  });
 });

@@ -18,6 +18,7 @@ export class Input extends Component {
     const { currentGuess } = this.state;
     if (currentGuess && currentGuess.length > 0) {
       this.props.guessWord(this.state.currentGuess);
+      this.setState({ currentGuess: '' });
     }
   };
 

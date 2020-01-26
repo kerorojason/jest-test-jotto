@@ -4,20 +4,22 @@ import { connect } from 'react-redux';
 import GuessedWords from './GuessedWords';
 import Congrats from './Congrats';
 import Input from './Input';
+import TotalGuesses from './TotalGuesses';
 import './App.css';
 import { getSecretWord } from './actions';
-
 export class UnconnectedApp extends Component {
-  componentDidMount() {
+  componentDidMount = () => {
     this.props.getSecretWord();
-  }
+  };
   render() {
     return (
       <div className='container'>
         <h1>Jotto</h1>
+        <div>The random word is: {this.props.secretWord}</div>
         <Congrats success={this.props.success} />
         <Input />
         <GuessedWords guessedWords={this.props.guessedWords} />
+        <TotalGuesses totalGuesses={this.props.guessedWords.length} />
       </div>
     );
   }
