@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import { findByTestAttr, checkProps } from '../test/testUtils';
+import { findByTestAttr } from '../test/testUtils';
 import TotalGuesses from './TotalGuesses';
 
 const initialProps = { totalGuesses: 0 };
